@@ -27,3 +27,7 @@ C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolutio
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Debug\net5.0\ref\ApiAgendaAnderson.dll
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Debug\net5.0\ApiAgendaAnderson.pdb
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Debug\net5.0\ApiAgendaAnderson.genruntimeconfig.cache
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\bin\Debug\net5.0\System.Net.Http.Formatting.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\bin\Debug\net5.0\System.Web.Http.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\bin\Debug\net5.0\Newtonsoft.Json.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\bin\Debug\net5.0\Newtonsoft.Json.Bson.dll
