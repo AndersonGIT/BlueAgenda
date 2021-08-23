@@ -1,4 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using LayerLib.Classes.Constantes;
+using LayerLib.Entidades;
+using LayerLib.Negocios;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,34 +13,65 @@ namespace ApiAgendaAnderson.Controllers
     [Route("api/[controller]/[action]")]
     public class AgendaController : ControllerBase
     {
-        [HttpGet]
-        public IActionResult Consultar(long pId)
+        BoAgenda _BoAgenda;
+        public AgendaController(BoAgenda pBoAgenda)
         {
-            return Ok(new { Status = "OK", Mensagem = "Consultado com sucesso." });
+            _BoAgenda = pBoAgenda;
+        }
+
+        [HttpGet]
+        public IActionResult Consultar(long pIdContato)
+        {
+            if(pIdContato > -1)
+            {
+                Contato contato = _BoAgenda.Consultar(pIdContato);
+
+                return Ok(contato);
+            }
+            else
+            {
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato informado, {pIdContato}, é inválido."});
+            }
         }
 
         [HttpGet]
         public IActionResult Listar()
         {
-            return Ok(new { Status = "OK", Mensagem = "Listado com sucesso." });
+            List<Contato> contatos = _BoAgenda.ListarTodosContatos();
+
+            if (contatos?.Count > 0)
+            {
+                return Ok(contatos);
+            }
+            else
+                return NotFound();
         }
 
         [HttpPost]
-        public IActionResult Inserir(string pEntrada)
+        public IActionResult Inserir(Contato pContato)
         {
-            return Ok(new { Status = "OK", Mensagem = "Inserido com sucesso." });
+            _BoAgenda.InserirContato(pContato);
+
+            if (pContato.Id > 0)
+            {
+                return Ok(pContato);
+            }
+            else
+            {
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não inserido." });
+            }
         }
 
         [HttpPut]
-        public IActionResult Atualizar(string pEntrada)
+        public IActionResult Atualizar(Contato pEntrada)
         {
-            return Ok(new { Status = "OK", Mensagem = "Atualizado com sucesso." });
+            return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Atualizado com sucesso. (MOC)" });
         }
 
         [HttpDelete]
-        public IActionResult Remover(long pId)
+        public IActionResult Remover(long pIdContato)
         {
-            return Ok(new { Status = "OK", Mensagem = "Removido com sucesso." });
+            return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Removido com sucesso. (MOC)" });
         }
     }
 }

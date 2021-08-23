@@ -1,0 +1,12 @@
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\bin\Debug\net5.0\LayerLib.deps.json
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\bin\Debug\net5.0\LayerLib.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\bin\Debug\net5.0\ref\LayerLib.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\bin\Debug\net5.0\LayerLib.pdb
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\obj\Debug\net5.0\LayerLib.csprojAssemblyReference.cache
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\obj\Debug\net5.0\LayerLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\obj\Debug\net5.0\LayerLib.AssemblyInfoInputs.cache
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\obj\Debug\net5.0\LayerLib.AssemblyInfo.cs
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\obj\Debug\net5.0\LayerLib.csproj.CoreCompileInputs.cache
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\obj\Debug\net5.0\LayerLib.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\obj\Debug\net5.0\ref\LayerLib.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\LayerLib\obj\Debug\net5.0\LayerLib.pdb

@@ -1,0 +1,20 @@
+﻿IF( OBJECT_ID('SP_AGD_InserirContato_V1') IS NOT NULL)
+BEGIN
+	DROP PROCEDURE SP_AGD_InserirContato_V1;
+END
+GO
+
+CREATE PROCEDURE SP_AGD_InserirContato_V1(
+    @pNome VARCHAR(200),
+    @pTelefone VARCHAR(14),
+    @pEmail VARCHAR(250),
+	@pIdContato BIGINT OUTPUT
+)
+AS
+BEGIN	
+	INSERT INTO AGENDA_CONTATO
+	(NOME, TELEFONE, EMAIL, ATIVO)
+	VALUES(@pNome, @pTelefone, @pEmail, 'S')
+
+	SELECT @pIdContato = SCOPE_IDENTITY()
+END;
