@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace ApiAgendaAnderson.Controllers
@@ -31,11 +32,11 @@ namespace ApiAgendaAnderson.Controllers
                     return Ok(contato);
                 }
                 else
-                    return NotFound(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não encontrado, id consultado = {pIdContato}." });
+                    return NotFound(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não encontrado, ID consultado = {pIdContato}." });
             }
             else
             {
-                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato informado, {pIdContato}, é inválido."});
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"ID do Contato informado, {pIdContato}, é inválido."});
             }
         }
 
@@ -55,11 +56,17 @@ namespace ApiAgendaAnderson.Controllers
         [HttpPost]
         public IActionResult Inserir(Contato pContato)
         {
-            _BoContato.InserirContato(pContato);
-
             if (pContato.Id > 0)
             {
-                return Ok(pContato);
+                long novoIdentity = _BoContato.InserirContato(pContato);
+                if (novoIdentity > 0)
+                {
+                    return Ok(pContato);
+                }
+                else
+                {
+                    return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não inserido, erro interno." });
+                }
             }
             else
             {
@@ -70,7 +77,21 @@ namespace ApiAgendaAnderson.Controllers
         [HttpPut]
         public IActionResult Atualizar(Contato pContato)
         {
-            return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Atualizado com sucesso. (MOC)" });
+            if (pContato.Id > 0)
+            {
+                if (_BoContato.AtualizarContato(pContato))
+                {
+                    return Ok(pContato);
+                }
+                else
+                {
+                    return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não atualizado, erro interno." });
+                }
+            }
+            else
+            {
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não atualizado, Id informado está incorreto. ID = {pContato.Id}" });
+            }
         }
 
         [HttpDelete]
@@ -78,12 +99,18 @@ namespace ApiAgendaAnderson.Controllers
         {
             if(pIdContato > 0)
             {
-                _BoContato.RemoverContato(pIdContato);
-                return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Removido com sucesso. (MOC)" });
+                if (_BoContato.RemoverContato(pIdContato))
+                {
+                    return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Removido com sucesso. (MOC)" });
+                }
+                else
+                {
+                    return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não removido, erro interno." });
+                }
             }
             else
             {
-                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não removido, entrada inválida." });
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não removido, entrada inválida. pIdContato = {pIdContato}." });
             }
         }
     }

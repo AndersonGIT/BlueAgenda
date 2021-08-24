@@ -96,13 +96,11 @@ namespace LayerLib.Dados.DispatcherContato
                 _sqlCommand.Parameters.Add("@pNome", SqlDbType.VarChar, 200);
                 _sqlCommand.Parameters.Add("@pTelefone", SqlDbType.VarChar, 14);
                 _sqlCommand.Parameters.Add("@pEmail", SqlDbType.VarChar, 250);
-                _sqlCommand.Parameters.Add("@pAtivo", SqlDbType.Char, 1);
-                _sqlCommand.Parameters.Add("@pIdContato", SqlDbType.BigInt).Direction = ParameterDirection.Output;
+                _sqlCommand.Parameters.Add("@pIdContato", SqlDbType.BigInt);
 
                 _sqlCommand.Parameters["@pNome"].Value = pContato.Nome;
                 _sqlCommand.Parameters["@pTelefone"].Value = pContato.Telefone;
                 _sqlCommand.Parameters["@pEmail"].Value = pContato.Email;
-                _sqlCommand.Parameters["@pAtivo"].Value = pContato.Ativo;
                 _sqlCommand.Parameters["@pIdContato"].Value = pContato.Id;
 
                 Executar(_sqlCommand);
