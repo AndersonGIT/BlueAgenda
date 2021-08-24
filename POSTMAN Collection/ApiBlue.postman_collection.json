@@ -1,0 +1,123 @@
+{
+	"info": {
+		"_postman_id": "aca68ae0-af2c-4549-a5e8-f48128ab9c4f",
+		"name": "ApiBlue",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "/Listar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44364/api/Agenda/Listar",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44364",
+					"path": [
+						"api",
+						"Agenda",
+						"Listar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/Consultar",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44364/api/Agenda/Consultar",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44364",
+					"path": [
+						"api",
+						"Agenda",
+						"Consultar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/Atualizar",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44364/api/Agenda/Atualizar",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44364",
+					"path": [
+						"api",
+						"Agenda",
+						"Atualizar"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/Remover",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"IdContato\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://localhost:44364/api/Agenda/Remover",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44364",
+					"path": [
+						"api",
+						"Agenda",
+						"Remover"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/Inserir",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "https://localhost:44364/api/Agenda/Inserir",
+					"protocol": "https",
+					"host": [
+						"localhost"
+					],
+					"port": "44364",
+					"path": [
+						"api",
+						"Agenda",
+						"Inserir"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
