@@ -9,15 +9,18 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace LayerLib.Dados.DispatcherAgenda
+namespace LayerLib.Dados.DispatcherContato
 {
-    public class DispatcherAgenda : DispatcherBase, IDispatcherAgenda
+    public class DispatcherContato : DispatcherBase, IDispatcherContato
     {
         SqlCommand _sqlCommand = null;
 
         #region Procedures
         private const string Proc_ListarTodosContatos = "SP_AGD_ListarTodosContatos_V1";
         private const string Proc_InserirContato = "SP_AGD_InserirContato_V1";
+        private const string Proc_AtualizarContato = "SP_AGD_AtualizarContato_V1";
+        private const string Proc_ConsultarContato = "SP_AGD_ConsultarContatoPorID_V1";
+        private const string Proc_RemoverContato = "SP_AGD_RemoverContato_V1";
         #endregion Procedures
 
         private const string Col_ID = "ID";
@@ -54,7 +57,19 @@ namespace LayerLib.Dados.DispatcherAgenda
 
         public Contato ConsultarContato(long pIdContato)
         {
-            throw new NotImplementedException();
+            _sqlCommand = new SqlCommand();
+            _sqlCommand.CommandType = CommandType.StoredProcedure;
+            _sqlCommand.CommandText = Proc_ConsultarContato;
+            _sqlCommand.Parameters.AddWithValue("@pIdContato", pIdContato);
+
+            DataSet dataSetTodosContatos = Consultar(_sqlCommand);
+
+            List<Contato> listaContatos = ConverterDataSetParaListContato(dataSetTodosContatos);
+
+            if (listaContatos?.Count > 0)
+                return listaContatos.Where(c => c.Id == pIdContato).FirstOrDefault();
+            else
+                return null;
         }
 
         public List<Contato> ListarTodosContatos()
@@ -72,12 +87,58 @@ namespace LayerLib.Dados.DispatcherAgenda
 
         public bool AtualizarContato(Contato pContato)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _sqlCommand = new SqlCommand();
+                _sqlCommand.CommandType = CommandType.StoredProcedure;
+                _sqlCommand.CommandText = Proc_AtualizarContato;
+
+                _sqlCommand.Parameters.Add("@pNome", SqlDbType.VarChar, 200);
+                _sqlCommand.Parameters.Add("@pTelefone", SqlDbType.VarChar, 14);
+                _sqlCommand.Parameters.Add("@pEmail", SqlDbType.VarChar, 250);
+                _sqlCommand.Parameters.Add("@pAtivo", SqlDbType.Char, 1);
+                _sqlCommand.Parameters.Add("@pIdContato", SqlDbType.BigInt).Direction = ParameterDirection.Output;
+
+                _sqlCommand.Parameters["@pNome"].Value = pContato.Nome;
+                _sqlCommand.Parameters["@pTelefone"].Value = pContato.Telefone;
+                _sqlCommand.Parameters["@pEmail"].Value = pContato.Email;
+                _sqlCommand.Parameters["@pAtivo"].Value = pContato.Ativo;
+                _sqlCommand.Parameters["@pIdContato"].Value = pContato.Id;
+
+                Executar(_sqlCommand);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implementar tratamento de erro.
+            }
+
+            return false;
         }
 
         public bool RemoverContato(long pIdContato)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _sqlCommand = new SqlCommand();
+                _sqlCommand.CommandType = CommandType.StoredProcedure;
+                _sqlCommand.CommandText = Proc_RemoverContato;
+
+                _sqlCommand.Parameters.Add("@pIdContato", SqlDbType.BigInt);
+
+                _sqlCommand.Parameters["@pIdContato"].Value = pIdContato;
+
+                Executar(_sqlCommand);
+
+                return true;
+            }
+            catch (Exception ex)
+            {
+                //TODO: Implementar tratamento de erro.
+            }
+
+            return false;
         }
 
         public List<Contato> ConverterDataSetParaListContato(DataSet pDataSet)

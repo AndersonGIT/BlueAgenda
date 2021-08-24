@@ -10,41 +10,40 @@ using System.Threading.Tasks;
 
 namespace LayerLib.Negocios
 {
-    public class BoAgenda
+    public class BoContato
     {
-        IDispatcherAgenda _DispatcherAgenda;
-        public BoAgenda(IDispatcherAgenda pDispatcherAgenda)
+        IDispatcherContato _DispatcherContato;
+        public BoContato(IDispatcherContato pDispatcherContato)
         {
-            _DispatcherAgenda = pDispatcherAgenda;
+            _DispatcherContato = pDispatcherContato;
         }
 
         public Contato Consultar(long pIdContato)
         {
-            Contato contato = new Contato { Id = pIdContato, Nome = "Anderson Diego", Telefone = "9.9638-0646", Email = "andersondiego@live.com" };
-
-            return new Contato();
+            Contato contato = _DispatcherContato.ConsultarContato(pIdContato);
+            return contato;
         }
 
         public List<Contato> ListarTodosContatos()
         {
-            List<Contato> contatos = _DispatcherAgenda.ListarTodosContatos();
+            List<Contato> contatos = _DispatcherContato.ListarTodosContatos();
 
             return contatos;
         }
 
         public long InserirContato(Contato pContato)
         {
-            return _DispatcherAgenda.InserirContato(pContato);
+            return _DispatcherContato.InserirContato(pContato);
         }
 
         public bool AtualizarContato(Contato pContato)
         {
-            return _DispatcherAgenda.AtualizarContato(pContato);
+            return _DispatcherContato.AtualizarContato(pContato);
         }
 
         public bool RemoverContato(long pIdContato)
         {
-            return _DispatcherAgenda.RemoverContato(pIdContato);
+            return _DispatcherContato.RemoverContato(pIdContato);
         }
     }
 }

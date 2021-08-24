@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace LayerLib.Infraestrutura.Interfaces
 {
-    public interface IDispatcherAgenda
+    public interface IDispatcherContato
     {
         public Contato ConsultarContato(long pIdContato);
         public List<Contato> ListarTodosContatos();

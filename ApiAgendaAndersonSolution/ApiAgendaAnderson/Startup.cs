@@ -1,4 +1,4 @@
-using LayerLib.Dados.DispatcherAgenda;
+using LayerLib.Dados.DispatcherContato;
 using LayerLib.Infraestrutura.Interfaces;
 using LayerLib.Negocios;
 using Microsoft.AspNetCore.Builder;
@@ -30,8 +30,8 @@ namespace ApiAgendaAnderson
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddScoped<IDispatcherAgenda, DispatcherAgenda>();
-            services.AddScoped<BoAgenda, BoAgenda>();
+            services.AddScoped<IDispatcherContato, DispatcherContato>();
+            services.AddScoped<BoContato, BoContato>();
             
             services.AddControllers();
             services.AddSwaggerGen(c =>

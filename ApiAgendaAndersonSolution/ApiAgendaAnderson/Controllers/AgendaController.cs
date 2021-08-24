@@ -13,10 +13,10 @@ namespace ApiAgendaAnderson.Controllers
     [Route("api/[controller]/[action]")]
     public class AgendaController : ControllerBase
     {
-        BoAgenda _BoAgenda;
-        public AgendaController(BoAgenda pBoAgenda)
+        BoContato _BoContato;
+        public AgendaController(BoContato pBoContato)
         {
-            _BoAgenda = pBoAgenda;
+            _BoContato = pBoContato;
         }
 
         [HttpGet]
@@ -24,9 +24,14 @@ namespace ApiAgendaAnderson.Controllers
         {
             if(pIdContato > -1)
             {
-                Contato contato = _BoAgenda.Consultar(pIdContato);
+                Contato contato = _BoContato.Consultar(pIdContato);
 
-                return Ok(contato);
+                if (contato != null)
+                {
+                    return Ok(contato);
+                }
+                else
+                    return NotFound(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não encontrado, id consultado = {pIdContato}." });
             }
             else
             {
@@ -37,7 +42,7 @@ namespace ApiAgendaAnderson.Controllers
         [HttpGet]
         public IActionResult Listar()
         {
-            List<Contato> contatos = _BoAgenda.ListarTodosContatos();
+            List<Contato> contatos = _BoContato.ListarTodosContatos();
 
             if (contatos?.Count > 0)
             {
@@ -50,7 +55,7 @@ namespace ApiAgendaAnderson.Controllers
         [HttpPost]
         public IActionResult Inserir(Contato pContato)
         {
-            _BoAgenda.InserirContato(pContato);
+            _BoContato.InserirContato(pContato);
 
             if (pContato.Id > 0)
             {
@@ -63,7 +68,7 @@ namespace ApiAgendaAnderson.Controllers
         }
 
         [HttpPut]
-        public IActionResult Atualizar(Contato pEntrada)
+        public IActionResult Atualizar(Contato pContato)
         {
             return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Atualizado com sucesso. (MOC)" });
         }
@@ -71,7 +76,15 @@ namespace ApiAgendaAnderson.Controllers
         [HttpDelete]
         public IActionResult Remover(long pIdContato)
         {
-            return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Removido com sucesso. (MOC)" });
+            if(pIdContato > 0)
+            {
+                _BoContato.RemoverContato(pIdContato);
+                return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Removido com sucesso. (MOC)" });
+            }
+            else
+            {
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não removido, entrada inválida." });
+            }
         }
     }
 }

@@ -1,0 +1,18 @@
+﻿IF( OBJECT_ID('SP_AGD_RemoverContato_V1') IS NOT NULL)
+BEGIN
+	DROP PROCEDURE SP_AGD_RemoverContato_V1;
+END
+GO
+
+CREATE PROCEDURE SP_AGD_RemoverContato_V1
+(
+	@pIdContato BIGINT
+)
+AS
+BEGIN	
+	
+	UPDATE AGENDA_CONTATO
+	SET ATIVO = 'N'
+	WHERE
+	ID = @pIdContato
+END;
