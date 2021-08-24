@@ -56,21 +56,15 @@ namespace ApiAgendaAnderson.Controllers
         [HttpPost]
         public IActionResult Inserir(Contato pContato)
         {
+            _BoContato.InserirContato(pContato);
+
             if (pContato.Id > 0)
             {
-                long novoIdentity = _BoContato.InserirContato(pContato);
-                if (novoIdentity > 0)
-                {
-                    return Ok(pContato);
-                }
-                else
-                {
-                    return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não inserido, erro interno." });
-                }
+                return Ok(pContato);
             }
             else
             {
-                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não inserido." });
+                return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não inserido, erro interno." });
             }
         }
 
@@ -90,7 +84,7 @@ namespace ApiAgendaAnderson.Controllers
             }
             else
             {
-                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não atualizado, Id informado está incorreto. ID = {pContato.Id}" });
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não atualizado, Id informado está inválido. ID = {pContato.Id}" });
             }
         }
 
