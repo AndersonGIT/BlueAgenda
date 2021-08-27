@@ -19,7 +19,7 @@
           <td>{{contato.email}}</td>
           <td>
             &nbsp;
-            <button @click="atualizarContato()">Editar</button>
+            <button @click="atualizarContato();">Editar</button>
             &nbsp;
             <button @click="removerContato(contato.id);">Remover</button>
           </td>
@@ -52,7 +52,6 @@ export default {
           console.log('Inserido ' + contatoInserido.id);  
           console.log(contatoInserido.data)      
         });
-
     },
     consultarContato: (pIdContato) => {
       const urlConsultarAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Consultar?pIdContato' + pIdContato
@@ -61,7 +60,6 @@ export default {
           console.log('Consultado ' + pIdContato);  
           console.log(contatoConsultado.data)      
         });
-
     },
     listarContatos: (pEscopo) => {
       const urlListarAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Listar'
@@ -71,7 +69,15 @@ export default {
         pEscopo.Contatos = listaContatos.data;
       });
     },
-    atualizarContato: () => {
+    atualizarContato: (pContato) => {
+        const atualizarContatoAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Atualizar';
+
+        console.log(pContato);
+
+        axios.get(atualizarContatoAzure).then((contatoAtualizado) => {
+          console.log('Inserido ' + contatoAtualizado.id);  
+          console.log(contatoAtualizado.data)      
+        });
 
     },
     removerContato: (pIdContato) => {
