@@ -32,7 +32,7 @@ namespace ApiAgendaAnderson
         {
             services.AddScoped<IDispatcherContato, DispatcherContato>();
             services.AddScoped<BoContato, BoContato>();
-            
+            services.AddCors();
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
@@ -53,6 +53,11 @@ namespace ApiAgendaAnderson
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseCors(x => x
+               .AllowAnyMethod()
+               .AllowAnyHeader()
+               .SetIsOriginAllowed(origin => true) // allow any origin
+               .AllowCredentials()); // allow credenti
 
             app.UseAuthorization();
 
