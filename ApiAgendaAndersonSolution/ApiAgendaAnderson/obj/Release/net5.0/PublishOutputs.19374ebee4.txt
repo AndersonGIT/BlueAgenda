@@ -7,6 +7,8 @@ C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolutio
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\PubTmp\Out\ApiAgendaAnderson.pdb
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\PubTmp\Out\System.Net.Http.Formatting.dll
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\PubTmp\Out\System.Web.Http.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\PubTmp\Out\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.DependencyModel.dll
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\PubTmp\Out\Microsoft.OpenApi.dll
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\PubTmp\Out\Newtonsoft.Json.dll
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\PubTmp\Out\Newtonsoft.Json.Bson.dll

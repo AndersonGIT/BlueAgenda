@@ -8,6 +8,7 @@
           <th>Nome</th>
           <th>Telefone</th>
           <th>EMail</th>
+          <th></th>
         </tr>
       </thead>
       <tbody>
@@ -16,6 +17,12 @@
           <td>{{contato.nome}}</td>
           <td>{{contato.telefone}}</td>
           <td>{{contato.email}}</td>
+          <td>
+            &nbsp;
+            <button @click="atualizarContato()">Editar</button>
+            &nbsp;
+            <button @click="removerContato(contato.id);">Remover</button>
+          </td>
         </tr>
       </tbody>
     </table>
@@ -36,13 +43,43 @@ export default {
     }
   },
   methods: {
-    listarContatos: () => {
+    inserirContato: (pContato) => {
+      const urlInserirAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Inserir';
+
+        console.log(pContato);
+
+        axios.get(urlInserirAzure).then((contatoInserido) => {
+          console.log('Inserido ' + contatoInserido.id);  
+          console.log(contatoInserido.data)      
+        });
+
+    },
+    consultarContato: (pIdContato) => {
+      const urlConsultarAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Consultar?pIdContato' + pIdContato
+
+        axios.get(urlConsultarAzure).then((contatoConsultado) => {
+          console.log('Consultado ' + pIdContato);  
+          console.log(contatoConsultado.data)      
+        });
+
+    },
+    listarContatos: (pEscopo) => {
       const urlListarAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Listar'
-      // const urlListarLocal = 'https://localhost:44364/api/Agenda/Listar'
       
       axios.get(urlListarAzure).then((listaContatos) => {
-        console.log(listaContatos.data);
-      })
+        console.log(listaContatos);
+        pEscopo.Contatos = listaContatos.data;
+      });
+    },
+    atualizarContato: () => {
+
+    },
+    removerContato: (pIdContato) => {
+        const urlRemoverAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Remover?pIdContato=' + pIdContato
+
+        axios.delete(urlRemoverAzure).then(() => {
+          console.log('Removido ' + pIdContato);        
+        });
     }
   },
   created(){

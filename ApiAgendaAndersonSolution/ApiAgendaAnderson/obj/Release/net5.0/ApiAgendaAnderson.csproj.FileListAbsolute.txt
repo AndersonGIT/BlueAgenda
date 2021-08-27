@@ -42,3 +42,5 @@ C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolutio
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\ref\ApiAgendaAnderson.dll
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\ApiAgendaAnderson.pdb
 C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\obj\Release\net5.0\ApiAgendaAnderson.genruntimeconfig.cache
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\bin\Release\net5.0\Microsoft.DotNet.PlatformAbstractions.dll
+C:\Users\ANDERSON\Google Drive\Processos Seletivos\BLUE\ApiAgendaAndersonSolution\ApiAgendaAnderson\bin\Release\net5.0\Microsoft.Extensions.DependencyModel.dll
