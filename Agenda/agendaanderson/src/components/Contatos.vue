@@ -1,7 +1,28 @@
 <template>
   <div class="hello">
     <h1>Contatos {{ msg }}</h1>
-    <table>
+    <div class='container'>
+    <form action="">
+      <div class='form-group'>
+        <input id='id' name='id' type='hidden'>
+        <label for="nome">Nome</label>
+        <input type="text" class='form-control' id='nome' name='nome' placeholder="Digite o Nome">
+      </div>
+      <div class='form-group'>
+        <label for="telefone">Telefone</label>
+        <input type="tel" class='form-control' id='telefone' name='telefone' placeholder="Digite o Telefone" maxlength="14">
+      </div>
+        <div class='form-group'>
+        <label for="telefone">E-Mail</label>
+        <input type="email" class='form-control' id='email' name='email' placeholder="Digite o E-Mail">
+      </div>
+      <br>
+      <button type='button' v-on:click="salvarContato()" class='btn btn-primary'>Salvar</button>
+    </form>
+
+    </div>
+    <hr>
+    <table class='table'>
       <thead>
         <tr>
           <th>ID</th>
@@ -19,9 +40,11 @@
           <td>{{contato.email}}</td>
           <td>
             &nbsp;
-            <button @click="atualizarContato();">Editar</button>
+            <button class='btn btn-success' @click="consultarContato(contato.id);">Editar</button>
             &nbsp;
-            <button @click="removerContato(contato.id);">Remover</button>
+            |
+            &nbsp;
+            <button class='btn btn-danger' @click="removerContato(contato.id);">Remover</button>
           </td>
         </tr>
       </tbody>
@@ -30,6 +53,7 @@
 </template>
 
 <script>
+var escopoPagina = null;
 import axios from 'axios';
 
 export default {
@@ -43,53 +67,97 @@ export default {
     }
   },
   methods: {
-    inserirContato: (pContato) => {
+    salvarContato: () => {
+      var id = document.getElementById('id').value;
+
+      if(id != null && id != undefined){
+        if(id > 0){
+          escopoPagina.atualizarContato(id);
+        }else{
+          escopoPagina.inserirContato();
+        }
+      }
+    },
+    inserirContato: () => {
       const urlInserirAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Inserir';
 
-        console.log(pContato);
+      var pContato = {
+        Id: -1,
+        Nome: document.getElementById('nome').value,
+        Telefone: document.getElementById('telefone').value,
+        Email: document.getElementById('email').value,
+      };
 
-        axios.get(urlInserirAzure).then((contatoInserido) => {
-          console.log('Inserido ' + contatoInserido.id);  
-          console.log(contatoInserido.data)      
-        });
+      console.log(pContato);
+
+      axios.post(urlInserirAzure, pContato).then((contatoInserido) => {
+        console.log('Inserido ' + contatoInserido.data.id);  
+        console.log(contatoInserido.data);
+        escopoPagina.listarContatos();   
+        escopoPagina.limparFormulario();   
+        alert('Contato inserido.'); 
+      });
     },
     consultarContato: (pIdContato) => {
-      const urlConsultarAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Consultar?pIdContato' + pIdContato
+      escopoPagina.limparFormulario();
+      const urlConsultarAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Consultar?pIdContato=' + pIdContato
 
         axios.get(urlConsultarAzure).then((contatoConsultado) => {
           console.log('Consultado ' + pIdContato);  
-          console.log(contatoConsultado.data)      
+          console.log(contatoConsultado.data);
+          
+          document.getElementById('id').value = contatoConsultado.data.id;
+          document.getElementById('nome').value = contatoConsultado.data.nome;
+          document.getElementById('telefone').value = contatoConsultado.data.telefone;
+          document.getElementById('email').value = contatoConsultado.data.email;
         });
     },
-    listarContatos: (pEscopo) => {
+    listarContatos: () => {
       const urlListarAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Listar'
       
       axios.get(urlListarAzure).then((listaContatos) => {
+        console.log('Listado');
         console.log(listaContatos);
-        pEscopo.Contatos = listaContatos.data;
+        escopoPagina.Contatos = listaContatos.data;
       });
     },
-    atualizarContato: (pContato) => {
-        const atualizarContatoAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Atualizar';
+    atualizarContato: () => {
+      const atualizarContatoAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Atualizar';
 
-        console.log(pContato);
+      var pContato = {
+        Id: document.getElementById('id').value,
+        Nome: document.getElementById('nome').value,
+        Telefone: document.getElementById('telefone').value,
+        Email: document.getElementById('email').value,
+      };
 
-        axios.get(atualizarContatoAzure).then((contatoAtualizado) => {
-          console.log('Inserido ' + contatoAtualizado.id);  
-          console.log(contatoAtualizado.data)      
-        });
-
+      axios.put(atualizarContatoAzure, pContato).then((contatoAtualizado) => {
+        console.log('Atualizado ' + contatoAtualizado.id);  
+        console.log(contatoAtualizado.data);
+        escopoPagina.listarContatos();   
+        escopoPagina.limparFormulario();
+        alert('Contato atualizado.'); 
+      });
     },
     removerContato: (pIdContato) => {
         const urlRemoverAzure = 'https://apiagenda.azurewebsites.net/api/Agenda/Remover?pIdContato=' + pIdContato
 
         axios.delete(urlRemoverAzure).then(() => {
-          console.log('Removido ' + pIdContato);        
+          console.log('Removido ' + pIdContato);   
+          escopoPagina.listarContatos(); 
+          alert('Contato removido.');
         });
+    },
+    limparFormulario: () => {
+        document.getElementById('id').value = '';
+        document.getElementById('nome').value = '';
+        document.getElementById('telefone').value = '';
+        document.getElementById('email').value = '';
     }
   },
   created(){
-    this.listarContatos(this)
+    escopoPagina = this;
+    this.listarContatos()
   }
 }
 </script>
