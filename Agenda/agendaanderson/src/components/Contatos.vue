@@ -68,14 +68,28 @@ export default {
   },
   methods: {
     salvarContato: () => {
-      var id = document.getElementById('id').value;
 
-      if(id != null && id != undefined){
-        if(id > 0){
-          escopoPagina.atualizarContato(id);
-        }else{
-          escopoPagina.inserirContato();
-        }
+      if(document.getElementById('nome').value == '')
+      {
+        alert('Nome é Obrigatório.')
+      }
+      else if(document.getElementById('telefone').value == '')
+      {
+        alert('Telefone é obrigatório.')
+      }
+      else if(document.getElementById('email').value == '')
+      {
+        alert('Email é obrigatório.')
+      }else{
+            var id = document.getElementById('id').value;
+
+            if(id != null && id != undefined){
+              if(id > 0){
+                escopoPagina.atualizarContato(id);
+              }else{
+                escopoPagina.inserirContato();
+              }
+            }
       }
     },
     inserirContato: () => {
