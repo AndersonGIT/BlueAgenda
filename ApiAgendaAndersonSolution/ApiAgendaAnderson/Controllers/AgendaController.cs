@@ -15,35 +15,37 @@ namespace ApiAgendaAnderson.Controllers
     public class AgendaController : ControllerBase
     {
         BoContato _BoContato;
-        public AgendaController(BoContato pBoContato)
+        BoContatoEF _BoContatoEF;
+        public AgendaController(BoContato pBoContato, BoContatoEF pBoContatoEF)
         {
             _BoContato = pBoContato;
+            _BoContatoEF = pBoContatoEF;
         }
 
         [HttpGet]
         public IActionResult Consultar(long pIdContato)
         {
-            if(pIdContato > -1)
+            if (pIdContato > -1)
             {
-                Contato contato = _BoContato.Consultar(pIdContato);
+                ContatoEF contatoEF = _BoContatoEF.Consultar(pIdContato);
 
-                if (contato != null)
+                if (contatoEF != null)
                 {
-                    return Ok(contato);
+                    return Ok(contatoEF);
                 }
                 else
                     return NotFound(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não encontrado, ID consultado = {pIdContato}." });
             }
             else
             {
-                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"ID do Contato informado, {pIdContato}, é inválido."});
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"ID do Contato informado, {pIdContato}, é inválido." });
             }
         }
 
         [HttpGet]
         public IActionResult Listar()
         {
-            List<Contato> contatos = _BoContato.ListarTodosContatos();
+            List<ContatoEF> contatos = _BoContatoEF.ListarTodosContatos();
 
             if (contatos?.Count > 0)
             {
@@ -54,48 +56,62 @@ namespace ApiAgendaAnderson.Controllers
         }
 
         [HttpPost]
-        public IActionResult Inserir(Contato pContato)
+        public IActionResult Inserir(ContatoEF pContato)
         {
-            _BoContato.InserirContato(pContato);
+            try
+            {
+                _BoContatoEF.InserirContato(pContato);
 
-            if (pContato.Id > 0)
-            {
-                return Ok(pContato);
-            }
-            else
-            {
-                return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não inserido, erro interno." });
-            }
-        }
-
-        [HttpPut]
-        public IActionResult Atualizar(Contato pContato)
-        {
-            if (pContato.Id > 0)
-            {
-                if (_BoContato.AtualizarContato(pContato))
+                if (pContato.Id.HasValue && pContato.Id.Value> 0)
                 {
                     return Ok(pContato);
                 }
                 else
                 {
-                    return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não atualizado, erro interno." });
+                    return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não inserido, erro interno." });
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não atualizado, Id informado está inválido. ID = {pContato.Id}" });
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = ex.Message });
+            }
+        }
+
+        [HttpPut]
+        public IActionResult Atualizar(ContatoEF pContato)
+        {
+            try
+            {
+                if (pContato.Id > 0)
+                {
+                    if (_BoContatoEF.AtualizarContato(pContato))
+                    {
+                        return Ok(pContato);
+                    }
+                    else
+                    {
+                        return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = Constantes.JsonStatus_ERRO, Mensagem = "Contato não atualizado, erro interno." });
+                    }
+                }
+                else
+                {
+                    return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = $"Contato não atualizado, Id informado está inválido. ID = {pContato.Id}" });
+                }
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new { Status = Constantes.JsonStatus_ERRO, Mensagem = ex.Message });
             }
         }
 
         [HttpDelete]
         public IActionResult Remover(long pIdContato)
         {
-            if(pIdContato > 0)
+            if (pIdContato > 0)
             {
-                if (_BoContato.RemoverContato(pIdContato))
+                if (_BoContatoEF.RemoverContato(pIdContato))
                 {
-                    return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Removido com sucesso. (MOC)" });
+                    return Ok(new { Status = Constantes.JsonStatus_OK, Mensagem = "Removido com sucesso." });
                 }
                 else
                 {
